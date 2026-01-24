@@ -34,7 +34,7 @@ export default async function RoomDetailPage({ params }: Props) {
               <h2 className="text-2xl font-semibold mb-2">
                 Chi tiết căn phòng
               </h2>
-              <p className="text-gray-600 mb-4">{roomDetail.moTa}</p>
+              {/* <p className="text-gray-600 mb-4">{roomDetail.moTa}</p> */}
               <div className="flex gap-4 border-t pt-4">
                 <span>
                   <strong>Giường:</strong> {roomDetail.giuong}

@@ -3,7 +3,7 @@ import { User } from "@/app/types/login";
 const BASE_URL = "https://airbnbnew.cybersoft.edu.vn/api/auth/signup";
 
 export const SignupServices = {
-  signup: async (data: User[]) => {
+  signup: async (data: User) => {
     const res = await fetch(BASE_URL, {
       method: "POST",
       headers: {

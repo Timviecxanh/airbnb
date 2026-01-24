@@ -14,7 +14,10 @@ import dayjs from "dayjs";
 import { Room } from "@/app/types/rooms";
 import { bookingService } from "@/app/services/booking.service";
 export default function BookingCard({ roomDetail }: { roomDetail: Room }) {
-  const [range, setRange] = useState<[Date | null, Date | null]>([null, null]);
+  const [range, setRange] = useState<[string | null, string | null]>([
+    null,
+    null,
+  ]);
   const [guests, setGuests] = useState<number | string>(1);
   const [loading, setLoading] = useState(false);
 

@@ -81,7 +81,7 @@ export default function Header() {
                   <Avatar src={user.avatar} size={30} radius="xl" />
                 ) : (
                    
-                  <IconUserCircle size={32} color="#717171" style={{marginLeft: 8}} filled/>
+                  <IconUserCircle size={32} color="#717171" style={{marginLeft: 8}}/>
                 )}
               </button>
             </Menu.Target>

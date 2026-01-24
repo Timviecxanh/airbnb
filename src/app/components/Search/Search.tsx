@@ -72,7 +72,10 @@ export default function Search() {
 
   const [active, setActive] = useState<Section>(null);
   const [location, setLocation] = useState<any>(null);
-  const [range, setRange] = useState<[Date | null, Date | null]>([null, null]);
+  const [range, setRange] = useState<[string | null, string | null]>([
+    null,
+    null,
+  ]);
   const [guests, setGuests] = useState(1);
 
   const closeAll = () => setActive(null);

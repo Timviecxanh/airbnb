@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 import { TextInput, Button, Group, Radio, Stack } from "@mantine/core";
 
 type SignupValues = {
+  // id: number;
   name: string;
   email: string;
-  password: string;
   phone: string;
   birthday: string;
   gender: boolean;
@@ -38,9 +38,9 @@ export default function Signup() {
     }),
   });
 
-  const handleSubmit = async (values: SignupValues) => {
+  const handleSubmit = async (value: SignupValues) => {
     try {
-      await SignupServices.signup(values);
+      await SignupServices.signup(value);
 
       alert("Đăng ký thành công");
 
