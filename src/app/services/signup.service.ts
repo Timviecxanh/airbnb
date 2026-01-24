@@ -1,26 +1,20 @@
-// Thêm vào file service của bạn
-import {Room} from "@/app/types/rooms"
-const BASE_URL = "https://airbnbnew.cybersoft.edu.vn/api";
+import { User } from "@/app/types/login";
 
-export const RoomService = {
-  // Hàm lấy danh sách phòng dựa trên ID vị trí
-  
-  getByLocation: async (locationId: string): Promise<Room[]> => {
-    const res = await fetch(
-      `${BASE_URL}/phong-thue/lay-phong-theo-vi-tri?maViTri=${locationId}`, 
-      {
-        headers: {
-          TokenCybersoft: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", // Token của bạn
-        },
-        cache: "no-store",
-      }
-    );
+const BASE_URL = "https://airbnbnew.cybersoft.edu.vn/api/auth/signup";
 
-    if (!res.ok) {
-      throw new Error("Không lấy được danh sách phòng theo vị trí này");
-    }
+export const SignupServices = {
+  signup: async (data: User[]) => {
+    const res = await fetch(BASE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        TokenCybersoft:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA5MCIsIkhldEhhblN0cmluZyI6IjI5LzA1LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4MDAxMjgwMDAwMCIsIm5iZiI6MTc1MzAzMDgwMCwiZXhwIjoxNzgwMTYwNDAwfQ.KkGRtLpEsgoM4M_TapjOZIzvAwbay3QvXIwwN8XUqWk",
+      },
+      body: JSON.stringify(data),
+    });
 
-    const data = await res.json();
-    return data.content; // Trả về mảng các phòng [Room, Room, ...]
+    if (!res.ok) throw await res.json();
+    return res.json();
   },
 };
