@@ -1,0 +1,183 @@
+.headerRoot {
+  background-color: #fff;
+  border-bottom: 1px solid #ebebeb;
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  
+}
+
+.headerWrapper {
+  max-width: 1440px; // Hoặc 2520px cho màn hình rộng
+  margin: 0 auto;
+  padding: 0 40px; // Padding giống Airbnb
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// --- LEFT: LOGO ---
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+ 
+  flex: 1 0 140px; // Giữ vị trí bên trái
+
+    width: 300px;
+    height: 200px;
+  .logoText {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    
+    // Ẩn chữ trên màn hình nhỏ
+    @media (max-width: 900px) {
+        display: none;
+    }
+  }
+}
+
+// --- CENTER: TABS ---
+.center {
+  flex: 0 1 auto;
+}
+
+.tabsList {
+  display: flex;
+  gap: 8px;
+  border: none !important;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px 16px;
+  opacity: 0.6; // Mờ khi không active
+  transition: opacity 0.2s;
+  
+  &:hover {
+    background-color: transparent; // Airbnb không có bg hover ở header này
+    opacity: 1;
+    .tabContent {
+        color: #222;
+    }
+  }
+
+  // Active state
+  &[data-active] {
+    opacity: 1;
+    
+    .tabContent {
+        color: #000;
+        font-weight: 600;
+        
+        // Gạch chân màu đen khi active
+        &::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            margin-top: 10px; // Khoảng cách gạch chân
+            position: absolute;
+            bottom: -18px; // Đẩy xuống sát mép header
+            left: 0;
+        }
+    }
+  }
+}
+
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #717171;
+  font-size: 12px;
+  font-family: inherit;
+  position: relative;
+  
+  span {
+      margin-top: 4px;
+      white-space: nowrap;
+  }
+}
+
+.iconWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+// Badge "MỚI"
+.badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background-color: #38516d; // Màu xanh đậm như ảnh
+    color: white;
+    font-size: 8px;
+    font-weight: 800;
+    padding: 2px 4px;
+    border-radius: 4px;
+    line-height: 1;
+    box-shadow: 0 0 0 1px #fff;
+}
+
+// --- RIGHT: USER ACTIONS ---
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex: 1 0 140px;
+}
+
+.hostLink {
+  color: #222;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 22px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+}
+
+.globeBtn {
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #222;
+    
+    &:hover {
+        background-color: #f7f7f7;
+    }
+}
+
+// Nút User Menu (Pill shape)
+.profileBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid #dddddd;
+  border-radius: 21px;
+  padding: 5px 5px 5px 12px; // Padding lệch để chứa icon hamburger và avatar
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+  }
+}

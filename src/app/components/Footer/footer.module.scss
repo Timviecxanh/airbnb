@@ -1,0 +1,50 @@
+
+
+.wrapper {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+
+  .title {
+    font-size: 22px;
+    color: #222222;
+  }
+  .tabsList {
+    border: none;
+    gap: 24px;
+    margin-bottom: -1px;
+    &::before {
+      display: none;
+    }
+  }
+
+  .tab {
+    padding: 0 0 12px 0;
+    background: transparent !important;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    color: #7d7c7c;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: #000;
+     
+    }
+    &[data-active] {
+      color: #000;
+      border-bottom-color: #222222;
+    }
+  }
+}
+
+.locationItem {
+  flex-direction: column;
+  text-align: left;
+  gap: 2px;
+  transition: opacity 0.2s;
+  &:hover {
+    opacity: 0.7;
+  }
+}

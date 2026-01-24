@@ -1,0 +1,158 @@
+
+$c-primary: #ff385c;
+$c-white: #ffffff;
+$c-gray-bg: #ebebeb;      // Màu nền xám khi hover
+$c-divider: #dddddd;      // Màu thanh gạch dọc
+$c-text-main: #222222;
+$c-text-sub: #717171;
+$shadow-norm: 0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
+$shadow-active: 0 6px 16px rgba(0,0,0,0.12); // Bóng đổ khi active
+$gradient-start: #f55f8d;
+$gradient-mid: #f8ae56;
+.searchWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: $c-white; 
+  border: 1px solid $c-divider;
+  border-radius: 40px;
+  height: 66px;
+  width: 100%;
+  max-width: 850px;
+  box-shadow: $shadow-norm;
+  transition: background-color 0.2s ease;
+
+ 
+  &:has(.searchSection:hover),
+  &:has([data-active="true"]) {
+    background-color: $c-gray-bg;
+  }
+}
+
+.searchSection {
+  flex: 1; 
+  height: 100%; 
+  position: relative;
+  border-radius: 40px;
+  cursor: pointer;
+  padding: 0 32px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 1; 
+
+  
+  &:hover,
+  &[data-active="true"] {
+    background-color: $c-white !important; 
+    box-shadow: $shadow-active;
+    z-index: 10; 
+  }
+
+  
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%); 
+    height: 32px;
+    width: 1px;
+    background-color: $c-divider;
+    transition: opacity 0.1s;
+  }
+
+  
+  &:hover::after, 
+  &[data-active="true"]::after {
+    opacity: 0;
+  }
+  
+  // --- Typography ---
+  .label {
+    font-size: 13px;
+    font-weight: 700;
+    color: $c-text-main;
+    margin-bottom: 2px;
+  }
+  .value {
+    font-size: 14px;
+    color: $c-text-sub;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+
+.searchBtn {
+ 
+  
+  cursor: pointer;
+  
+  
+  padding: 28px 33px; 
+  
+  height: 48px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 30px;
+  margin-right: 8px;
+  
+ 
+  background-image: linear-gradient(
+    to right,
+    $gradient-start 0%,
+    $gradient-mid 51%,
+    $gradient-start 100%
+  );
+  background-size: 200% auto; 
+  transition: all 0.5s ease;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  
+  &:hover {
+    background-position: right center; 
+    box-shadow: 0 4px 15px rgba(245, 95, 141, 0.4); 
+    transform: translateY(-1px); 
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+ 
+ 
+}
+
+.popoverContent {
+  border-radius: 32px !important;
+  padding: 24px 0 !important;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.15) !important;
+  border: none !important;
+}
+
+.locationItem {
+  width: 100%;
+  padding: 12px 24px;
+  transition: background 0.1s;
+  border-radius: 0;
+  &:hover { background-color: #f7f7f7; }
+}
