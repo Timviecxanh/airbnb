@@ -4,7 +4,6 @@ import { Card, Image } from "@mantine/core";
 import { IconHeart } from "@tabler/icons-react";
 import classes from "@/app/components/Menu/card.module.scss";
 import { Room } from "@/app/types/rooms";
-import { useState } from "react";
 
 export default function RoomCard({ room }: { room: Room }) {
   return (

@@ -3,6 +3,11 @@
   background: transparent ;
   position: relative;
   cursor: pointer;
+ 
+
+
+
+
 }
 
 .cardSection {
@@ -14,7 +19,9 @@
   height: 200px;
   object-fit: cover;
   border-radius: 18px ;
+
 }
+
 
 
 .container {
@@ -23,46 +30,39 @@
   left: 12px;
   right: 12px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around; 
   align-items: center;
+  z-index: 2; 
+  gap: 8px;
 }
 
 .desc {
-  background: #fff;
+  background: #ffffffed;
   color: #222;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   padding: 4px 12px;
   border-radius: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }
 
-
 .icon {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-
+  
   width: 32px;
   height: 32px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.45);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: white;
   cursor: pointer;
-
   transition: transform 0.2s ease, background 0.2s ease;
-
   &:hover {
     transform: scale(1.1);
     background: rgba(0, 0, 0, 0.65);
   }
 }
-
 .address {
   list-style: none;
   padding: 0;
@@ -80,3 +80,4 @@
   font-size: 13px;
   color: #717171;
 }
+

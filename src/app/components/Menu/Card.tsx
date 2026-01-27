@@ -1,18 +1,11 @@
-'use client'
- 
- import { Card, Image } from "@mantine/core";
+"use client";
+
+import { Card, Image } from "@mantine/core";
 import classes from "./card.module.scss";
-import {
-  
-  IconHeart,
-} from "@tabler/icons-react";
+import { IconHeart } from "@tabler/icons-react";
 export default function Demo() {
   return (
     <Card
-      // shadow="sm"
-      // padding="lg"
-      // radius="md"
-      // withBorder
       className={classes.card}
       classNames={{
         section: classes.cardSection,
@@ -28,9 +21,9 @@ export default function Demo() {
 
         <div className={classes.container}>
           <div className={classes.desc}>Được Khách Yêu Thích</div>
-          <div className={classes.icon}>
+          {/* <div className={classes.icon}>
             <IconHeart size={20} />
-          </div>
+          </div> */}
         </div>
 
         <div>

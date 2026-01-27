@@ -1,9 +1,5 @@
 import RoomsList from "./components/RoomList";
-
+// import RoomsSection from "./components/RoomSection";
 export default function RoomsPage() {
-  return (
-    <main>
-      <RoomsList />
-    </main>
-  );
+  return <RoomsList />;
 }
