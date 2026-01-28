@@ -8,7 +8,7 @@ import { FooterBottom } from "@/app/components/Footer/FooterBottom";
 
 export default function Footer() {
   return (
-    <div className={classes.footerBg}>
+    
       <Container size="lg" className={classes.wrapper}>
         <Text fw={600} size="xll" mb="md" className={classes.title}>
           Nguồn cảm hứng cho những kỳ nghỉ sau này
@@ -35,6 +35,6 @@ export default function Footer() {
       </Container>
       <FooterContact />
       <FooterBottom />
-    </div>
+    
   );
 }
