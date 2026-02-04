@@ -1,0 +1,75 @@
+.card {
+  border: none;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+}
+
+.cardSection {
+  position: relative;
+}
+
+.imgage {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 18px;
+}
+
+.container {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 2;
+  gap: 8px;
+}
+
+.desc {
+  background: rgba(255, 255, 255, 0.9294117647);
+  color: #222;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.icon:hover {
+  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.address {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.location {
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.price {
+  font-size: 13px;
+  color: #717171;
+}/*# sourceMappingURL=card.module.css.map */

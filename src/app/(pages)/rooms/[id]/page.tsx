@@ -1,6 +1,7 @@
 import { DetailService } from "@/app/services/detail.service";
 import AuthGuard from "@/app/components/Auth/Auth";
-import BookingCard from "@/app/components/Booking/BookingCard"; // Import component vừa tạo
+import BookingCard from "@/app/components/Booking/BookingCard";
+import { CommentSection } from "@/app/components/Comments";
 
 interface Props {
   params: { id: string };
@@ -52,6 +53,11 @@ export default async function RoomDetailPage({ params }: Props) {
             <div className="md:col-span-1">
               <BookingCard roomDetail={roomDetail} />
             </div>
+          </div>
+
+          {/* Phần bình luận */}
+          <div className="mt-16">
+            <CommentSection maPhong={parseInt(id)} />
           </div>
         </div>
       </AuthGuard>

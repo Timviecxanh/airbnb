@@ -94,6 +94,20 @@ export default function Header() {
                   <Menu.Item fw={700}>Danh sách yêu thích</Menu.Item>
                   <Menu.Divider />
                   <Menu.Item component={Link} href="/profile">Tài khoản</Menu.Item>
+                  {user.role === "ADMIN" && (
+                    <>
+                      <Menu.Divider />
+                      <Menu.Item 
+                        component={Link} 
+                        href="/admin"
+                        fw={700}
+                        style={{ color: '#e74c3c' }}
+                      >
+                        🛠️ Admin Panel
+                      </Menu.Item>
+                    </>
+                  )}
+                  <Menu.Divider />
                   <Menu.Item onClick={logout} color="red">Đăng xuất</Menu.Item>
                 </>
               ) : (
