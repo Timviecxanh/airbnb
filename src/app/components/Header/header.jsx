@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useAuth } from "@/app/hooks/useAuth";
 import { Tabs,  Avatar,  Menu, Image } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import {
   IconHome,
   IconBalloon,
@@ -14,6 +15,17 @@ import nav from "./header.module.scss";
 
 export default function Header() {
   const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    notifications.show({
+      title: 'Đăng xuất thành công',
+      message: 'Bạn đã đăng xuất khỏi hệ thống',
+      color: 'green',
+      position: 'top-right',
+      autoClose: 3000,
+    });
+  };
 
   return (
     <header className={nav.headerRoot}>
@@ -35,10 +47,10 @@ export default function Header() {
         <div className={nav.center}>
           <Tabs defaultValue="stays" variant="unstyled" classNames={{ list: nav.tabsList, tab: nav.tab }}>
             <Tabs.List>
-              <Tabs.Tab value="stays">
+              <Tabs.Tab value="home" component={Link} href="/">
                 <div className={nav.tabContent}>
                   <IconHome size={24} stroke={1.5} className={nav.tabIcon} />
-                  <span>Nơi lưu trú</span>
+                  <span>Trang chủ</span>
                 </div>
               </Tabs.Tab>
 
@@ -108,7 +120,7 @@ export default function Header() {
                     </>
                   )}
                   <Menu.Divider />
-                  <Menu.Item onClick={logout} color="red">Đăng xuất</Menu.Item>
+                  <Menu.Item onClick={handleLogout} color="red">Đăng xuất</Menu.Item>
                 </>
               ) : (
                 <>

@@ -13,6 +13,7 @@ import { DatePicker } from "@mantine/dates";
 import { IconSearch } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
+import { useEffect, useRef } from "react";
 import classes from "./search.module.scss";
 
 const LOCATION_DATA = [
@@ -78,7 +79,31 @@ export default function Search() {
   ]);
   const [guests, setGuests] = useState(1);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const locationDropdownRef = useRef<HTMLDivElement>(null);
+  const dateDropdownRef = useRef<HTMLDivElement>(null);
+  const guestsDropdownRef = useRef<HTMLDivElement>(null);
   const closeAll = () => setActive(null);
+
+  useEffect(() => {
+    const handleDocumentMouseDown = (e: MouseEvent) => {
+      const path = (e as any).composedPath?.() || [];
+      const refs = [
+        wrapperRef.current,
+        locationDropdownRef.current,
+        dateDropdownRef.current,
+        guestsDropdownRef.current,
+      ];
+      const isInside = path.some((el: any) => refs.includes(el));
+      if (!isInside) {
+        closeAll();
+      }
+    };
+    document.addEventListener("mousedown", handleDocumentMouseDown);
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentMouseDown);
+    };
+  }, []);
 
   const handleSearch = () => {
     if (!location) {
@@ -92,7 +117,7 @@ export default function Search() {
   return (
     <div
       className={classes.searchWrapper}
-      onClick={closeAll} // 👈 click ngoài đóng toàn bộ
+      ref={wrapperRef}
     >
       <div
         className={classes.searchBar}
@@ -101,17 +126,25 @@ export default function Search() {
         {/* LOCATION */}
         <Popover
           opened={active === "location"}
+          onClose={() => setActive(null)}
           position="bottom-start"
           width={350}
           radius="xl"
+          shadow="md"
           trapFocus={false}
-          withinPortal={false}
+          closeOnClickOutside={true}
+          closeOnEscape={true}
+          withinPortal={true}
+          clickOutsideEvents={['mousedown', 'touchstart']}
         >
           <Popover.Target>
             <div
               className={classes.searchSection}
               data-active={active === "location"}
-              onClick={() => setActive("location")}
+              onMouseDown={(e) => {
+                e.stopPropagation();
+                setActive(active === "location" ? null : "location");
+              }}
             >
               <span className={classes.label}>Địa điểm</span>
               <span className={classes.value}>
@@ -120,22 +153,23 @@ export default function Search() {
             </div>
           </Popover.Target>
 
-          <Popover.Dropdown className={classes.popoverContent}>
-            <Text size="xs" fw={700} mb={10}>
+          <Popover.Dropdown className={classes.popoverContent} ref={locationDropdownRef}>
+            <Text size="xs" fw={700} mb={20}>
               Điểm đến đề xuất
             </Text>
 
-            <Stack gap={0}>
-              {LOCATION_DATA.map((item) => (
-                <UnstyledButton
-                  key={item.id}
-                  className={classes.locationItem}
-                  onClick={() => {
-                    setLocation(item);
-                    setActive("date");
-                  }}
-                >
-                  <Group>
+            <div className={classes.locationDropdown}>
+              <Stack gap={0}>
+                {LOCATION_DATA.map((item) => (
+                  <UnstyledButton
+                    key={item.id}
+                    className={classes.locationItem}
+                    onClick={() => {
+                      setLocation(item);
+                      setActive("date");
+                    }}
+                  >
+                  <Group gap="sm">
                     <Avatar src={item.hinhAnh} radius="md" />
                     <div>
                       <Text fw={600}>{item.tenViTri}</Text>
@@ -146,23 +180,32 @@ export default function Search() {
                   </Group>
                 </UnstyledButton>
               ))}
-            </Stack>
+              </Stack>
+            </div>
           </Popover.Dropdown>
         </Popover>
 
         {/* DATE */}
         <Popover
           opened={active === "date"}
+          onClose={() => setActive(null)}
           position="bottom"
           radius="xl"
+          shadow="md"
           trapFocus={false}
-          withinPortal={false}
+          closeOnClickOutside={true}
+          closeOnEscape={true}
+          withinPortal={true}
+          clickOutsideEvents={['mousedown', 'touchstart']}
         >
           <Popover.Target>
             <div
               className={classes.searchSection}
               data-active={active === "date"}
-              onClick={() => setActive("date")}
+              onMouseDown={(e) => {
+                e.stopPropagation();
+                setActive(active === "date" ? null : "date");
+              }}
             >
               <span className={classes.label}>Thời gian</span>
               <span className={classes.value}>
@@ -175,7 +218,7 @@ export default function Search() {
             </div>
           </Popover.Target>
 
-          <Popover.Dropdown className={classes.popoverContent}>
+          <Popover.Dropdown className={classes.popoverContent} ref={dateDropdownRef}>
             <DatePicker
               type="range"
               numberOfColumns={2}
@@ -191,31 +234,70 @@ export default function Search() {
         {/* GUESTS */}
         <Popover
           opened={active === "guests"}
+          onClose={() => setActive(null)}
           position="bottom-end"
           radius="xl"
+          shadow="md"
           trapFocus={false}
-          withinPortal={false}
+          closeOnClickOutside={true}
+          closeOnEscape={true}
+          withinPortal={true}
+          clickOutsideEvents={['mousedown', 'touchstart']}
         >
           <Popover.Target>
             <div
               className={classes.searchSection}
               data-active={active === "guests"}
-              onClick={() => setActive("guests")}
+              onMouseDown={(e) => {
+                e.stopPropagation();
+                setActive(active === "guests" ? null : "guests");
+              }}
             >
               <span className={classes.label}>Khách</span>
               <span className={classes.value}>{guests} khách</span>
             </div>
           </Popover.Target>
 
-          <Popover.Dropdown className={classes.popoverContent}>
-            <Group justify="space-between">
+          <Popover.Dropdown className={classes.popoverContent} ref={guestsDropdownRef}>
+            <Group justify="space-between" gap="md">
               <Text fw={600}>Số khách</Text>
-              <Group>
-                <button onClick={() => setGuests(Math.max(1, guests - 1))}>
+              <Group gap="md" align="center">
+                <button 
+                  onClick={() => setGuests(Math.max(1, guests - 1))}
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    border: '1px solid #ddd',
+                    borderRadius: '50%',
+                    background: '#fff',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: '500'
+                  }}
+                  disabled={guests <= 1}
+                >
                   -
                 </button>
-                <Text>{guests}</Text>
-                <button onClick={() => setGuests(guests + 1)}>+</button>
+                <Text fw={600} style={{ minWidth: '40px', textAlign: 'center' }}>{guests}</Text>
+                <button 
+                  onClick={() => setGuests(guests + 1)}
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    border: '1px solid #ddd',
+                    borderRadius: '50%',
+                    background: '#fff',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: '500'
+                  }}
+                >
+                  +
+                </button>
               </Group>
             </Group>
           </Popover.Dropdown>

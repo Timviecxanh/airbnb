@@ -20,6 +20,7 @@ export default function BookingCard({ roomDetail }: { roomDetail: Room }) {
   ]);
   const [guests, setGuests] = useState<number | string>(1);
   const [loading, setLoading] = useState(false);
+  const router = require('next/navigation').useRouter();
 
   // Tính số đêm dựa trên range đã chọn
   const totalDays = useMemo(() => {
@@ -29,6 +30,10 @@ export default function BookingCard({ roomDetail }: { roomDetail: Room }) {
   }, [range]);
 
   const handleBooking = async () => {
+    if (!range[0] || !range[1]) {
+      alert("Bạn chưa chọn thời gian đặt phòng");
+      return;
+    }
     const userData = localStorage.getItem("user");
     if (!userData) return alert("Vui lòng đăng nhập");
 
@@ -48,6 +53,7 @@ export default function BookingCard({ roomDetail }: { roomDetail: Room }) {
     try {
       await bookingService.bookRoom(payload, user.token);
       alert("Đặt phòng thành công!");
+      router.push("/history");
     } catch (error: any) {
       // Thông báo lỗi chi tiết từ server (ví dụ: "Phòng đã được đặt")
       alert(error.message);

@@ -1,18 +1,33 @@
 .headerRoot {
-  background-color: #fff;
-  border-bottom: 1px solid #ebebeb;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.04);
+  border-bottom: 1px solid #e5e7eb;
   height: 80px;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
   width: 100%;
+  z-index: 9999;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+    pointer-events: none;
+  }
 }
 
 .headerWrapper {
-  max-width: 1440px; // Hoặc 2520px cho màn hình rộng
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 40px; // Padding giống Airbnb
+  padding: 0 40px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -24,17 +39,24 @@
   display: flex;
   align-items: center;
   gap: 8px;
- 
-  flex: 1 0 140px; // Giữ vị trí bên trái
+  flex: 1 0 140px;
+  width: 300px;
+  height: 200px;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
 
-    width: 300px;
-    height: 200px;
   .logoText {
     font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     
-    // Ẩn chữ trên màn hình nhỏ
     @media (max-width: 900px) {
         display: none;
     }
@@ -48,45 +70,48 @@
 
 .tabsList {
   display: flex;
-  gap: 8px;
-  border: none !important;
+  /* background: rgba(247, 250, 252, 0.6); */
+  background: transparent;
+  border-radius: 50px;
+  padding: 8px;
+  gap: 4px;
+  /* backdrop-filter: blur(10px); */
+  border: none;
 }
 
 .tab {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 10px 16px;
-  opacity: 0.6; // Mờ khi không active
-  transition: opacity 0.2s;
+  padding: 12px 20px;
+  border-radius: 50px;
+  opacity: 0.7;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
   
   &:hover {
-    background-color: transparent; // Airbnb không có bg hover ở header này
+    background: rgba(255, 255, 255, 0.8);
     opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    
     .tabContent {
         color: #222;
     }
   }
 
-  // Active state
   &[data-active] {
     opacity: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-1px);
     
     .tabContent {
-        color: #000;
+        color: white;
         font-weight: 600;
         
-        // Gạch chân màu đen khi active
-        &::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 2px;
-            background-color: #000;
-            margin-top: 10px; // Khoảng cách gạch chân
-            position: absolute;
-            bottom: -18px; // Đẩy xuống sát mép header
-            left: 0;
+        .tabIcon {
+          color: white;
         }
     }
   }
@@ -105,7 +130,12 @@
   span {
       margin-top: 4px;
       white-space: nowrap;
+      font-weight: 500;
   }
+}
+
+.tabIcon {
+  transition: color 0.3s ease;
 }
 
 .iconWrapper {
@@ -113,19 +143,25 @@
     display: inline-block;
 }
 
-// Badge "MỚI"
 .badge {
     position: absolute;
     top: -6px;
     right: -10px;
-    background-color: #38516d; // Màu xanh đậm như ảnh
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
     color: white;
     font-size: 8px;
     font-weight: 800;
-    padding: 2px 4px;
-    border-radius: 4px;
+    padding: 2px 5px;
+    border-radius: 8px;
     line-height: 1;
-    box-shadow: 0 0 0 1px #fff;
+    box-shadow: 0 2px 4px rgba(238, 90, 36, 0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 // --- RIGHT: USER ACTIONS ---
@@ -133,7 +169,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 12px;
   flex: 1 0 140px;
 }
 
@@ -142,12 +178,30 @@
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-  padding: 12px;
-  border-radius: 22px;
-  transition: background-color 0.2s;
+  padding: 12px 16px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left 0.5s;
+  }
 
   &:hover {
-    background-color: #f7f7f7;
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateY(-1px);
+    
+    &::before {
+      left: 100%;
+    }
   }
 }
 
@@ -159,25 +213,35 @@
     align-items: center;
     justify-content: center;
     color: #222;
+    transition: all 0.3s ease;
     
     &:hover {
-        background-color: #f7f7f7;
+        background: rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
     }
 }
 
-// Nút User Menu (Pill shape)
 .profileBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: white;
-  border: 1px solid #dddddd;
-  border-radius: 21px;
-  padding: 5px 5px 5px 12px; // Padding lệch để chứa icon hamburger và avatar
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(221, 221, 221, 0.6);
+  border-radius: 25px;
+  padding: 6px 6px 6px 12px;
   cursor: pointer;
-  transition: box-shadow 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
 
   &:hover {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(102, 126, 234, 0.3);
   }
+}
+
+// Override Mantine Menu dropdown z-index to appear above header
+:global(.mantine-Menu-dropdown) {
+  z-index: 10000 !important;
 }

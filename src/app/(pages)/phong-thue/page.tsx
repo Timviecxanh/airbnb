@@ -22,12 +22,23 @@ export default function PhongThuePage() {
   }, [maViTri]);
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Danh sách phòng</h1>
+    <div className="container mx-auto p-10">
+      <h1 className="text-3xl font-bold mb-10">Danh sách phòng</h1>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {rooms.map((room) => (
-          <div key={room.id} onClick={() => router.push(`/rooms/${room.id}`)}>
+          <div
+            key={room.id}
+            onClick={() => router.push(`/rooms/${room.id}`)}
+            style={{
+              cursor: "pointer",
+              background: "#fff",
+              borderRadius: "24px",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+              padding: "24px",
+              marginBottom: "24px"
+            }}
+          >
             <RoomCard room={room} />
           </div>
         ))}
