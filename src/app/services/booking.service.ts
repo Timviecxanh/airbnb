@@ -18,14 +18,12 @@ export const bookingService = {
       headers: {
         "Content-Type": "application/json",
         TokenCybersoft: TOKEN_CYBERSOFT,
-        // QUAN TRỌNG: API Cybersoft yêu cầu header tên là 'token'
         token: accessToken,
       },
       body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
-      // Đọc lỗi chi tiết từ server để biết tại sao 403
       const errorData = await res.json();
       throw new Error(errorData.content || "Đặt phòng thất bại");
     }

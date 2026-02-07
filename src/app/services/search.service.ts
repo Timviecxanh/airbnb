@@ -17,6 +17,6 @@ export const roomService = {
     );
 
     const data = await res.json();
-    return data.content; // ← mảng
+    return data.content;
   },
 };
